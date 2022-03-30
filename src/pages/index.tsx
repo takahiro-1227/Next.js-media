@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 
-const GET_POSTS = gql`
+export const GET_POSTS = gql`
   query {
     getPosts {
       id
@@ -14,6 +15,9 @@ const GET_POSTS = gql`
 
 const Articles = () => {
   const {loading, error, data} = useQuery(GET_POSTS);
+
+  const router = useRouter();
+  
   if (loading) {
     return <p>Loading...</p>
   }
@@ -24,12 +28,12 @@ const Articles = () => {
   return (
     <table>
       <tbody>
-        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw}) => {
+        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}) => {
           const createdAtObj = new Date(Number(createdAtRaw));
           const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
         return (
-        <tr key={id}>
+        <tr key={id} onClick={() => router.push(`articles/${slug}`)}>
           <td>{id}</td>
           <td>{title}</td>
           <td>{content}</td>

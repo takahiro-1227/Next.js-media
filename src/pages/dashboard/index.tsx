@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 
-const GET_POSTS = gql`
+export const GET_POSTS = gql`
   query {
     getPosts {
       id
