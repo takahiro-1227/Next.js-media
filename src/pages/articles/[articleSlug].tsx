@@ -1,5 +1,5 @@
 import { Header } from '../../components/front/Header';
-import { gql } from '@apollo/client';
+import gql from 'graphql-tag';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useQuery } from '@apollo/client';
@@ -7,19 +7,9 @@ import { GET_POSTS } from '../index';
 import { prisma } from '../../libs/prisma';
 import { client } from '../_app';
 import { create } from 'domain';
+import GET_POST from '../../helper/getPost';
 
-const GET_POST = gql`
-  query GetPost($slug: String!) {
-    getPost(slug: $slug) {
-      id
-      title
-      content
-      createdAt
-    }
-  }
-`;
-
-const Article = ({ data }) => {
+const Article = ({ data }: any) => {
   const { title, content, createdAt: createdAtRaw } = data.getPost;
 
   const createdAtObj = new Date(Number(createdAtRaw));
@@ -51,13 +41,13 @@ export default Article;
 
 export async function getStaticPaths() {
   const {data} = await client.query({query: GET_POSTS});
-  const paths = data.getPosts.map((post) => ({
+  const paths = data.getPosts.map((post: any) => ({
     params: {articleSlug: post.slug}
   }))
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }){
+export async function getStaticProps({ params }: any){
   const slug = params.articleSlug;
   const {loading: fetchLoad, error: fetchError, data} = await client.query({query: GET_POST, variables: {slug}});
   

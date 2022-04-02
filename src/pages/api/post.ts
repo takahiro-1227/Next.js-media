@@ -1,62 +1,35 @@
 import { prisma } from '../../libs/prisma';
-import { ApolloServer, gql } from 'apollo-server-micro';
+import { ApolloServer } from 'apollo-server-micro';
 import { PrismaClient } from '@prisma/client';
 import Cors from 'micro-cors';
+import typeDefs from '../../api/Post.typeDefs';
 
-export const typeDefs = gql`
-  type Post {
-    id:        Int! 
-    slug:      String!
-    title:     String!
-    content:   String!
-    createdAt: String!
-  }
-
-  type Query {
-    getPosts: [Post]!
-    getPost(slug: String!): Post!
-  }
-
-  type Mutation {
-    createPost(
-      slug:      String!,
-      title:     String!,
-      content:   String!
-    ): Post!
-    updatePost(
-      id:        Int!,
-      slug:      String!,
-      title:     String!,
-      content:   String!
-    ): Post!
-  }
-`
 export type Context = {
   prisma: PrismaClient;
 }
 
-export async function createContext({ req, res }): Promise<Context> {
+export async function createContext(): Promise<Context> {
   return {
     prisma,
   }
 }
 export const resolvers = {
   Query: {
-    getPosts: (_parent, _args, {prisma}) => {
+    getPosts: (_parent: any, _args: any, {prisma}: any) => {
       return prisma.post.findMany();
     },
-    getPost: (_parent, {slug}, {prisma}) => {
+    getPost: (_parent: any, {slug}: any, {prisma}: any) => {
       return prisma.post.findUnique({where: {slug}})
     }
   },
   Mutation: {
-    createPost: async (_parent, {slug, title, content}, {prisma}) => {
+    createPost: async (_parent: any, {slug, title, content}: any, {prisma}: any) => {
       const post = await prisma.post.create({
         data: {slug, title, content},
       })
       return post;
     },
-    updatePost: async (_parent, {id, slug, title, content}, {prisma}) => {
+    updatePost: async (_parent: any, {id, slug, title, content}: any, {prisma}: any) => {
       const post = await prisma.post.update({
         where: {
           id

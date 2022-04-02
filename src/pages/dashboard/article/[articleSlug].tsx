@@ -4,16 +4,6 @@ import { EditArticle } from "../../../components/dashboard/EditArticle";
 import { useUpdateArticle } from '../../../hooks/useUpdateArticle';
 import { useRouter } from 'next/router';
 
-const GET_POST = gql`
-  query GetPost($slug: String!) {
-    getPost(slug: $slug) {
-      id
-      title
-      content
-    }
-  }
-`;
-
 const UpdateArticle = () => {
   const router = useRouter();
   const firstSlug = router.query.articleSlug;

@@ -1,0 +1,12 @@
+schema: './src/api/Post.typeDefs.ts'
+documents: 
+  - './src/**/*.tsx'
+  - './src/**/*.ts'
+generates:
+  ./src/generated/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher: fetch

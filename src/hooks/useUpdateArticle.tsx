@@ -1,15 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { useState, useEffect } from 'react'
+import GET_POST from '../helper/getPost'; 
 
-const GET_POST = gql`
-  query GetPost($slug: String!) {
-    getPost(slug: $slug) {
-      id
-      title
-      content
-    }
-  }
-`;
 const UPDATE_POST = gql`
 mutation UpdatePost($id: Int!, $title: String!, $content: String!, $slug: String!) {
   updatePost(id: $id, title: $title, content: $content, slug: $slug) {
@@ -34,7 +26,6 @@ export const useUpdateArticle = (firstSlug: string) => {
       setTitle(data.getPost.title);
       setContent(data.getPost.content);
       setSlug(firstSlug);
-      console.log(content);
     }
   }, [fetchLoad, data])
 
@@ -68,17 +59,6 @@ export const useUpdateArticle = (firstSlug: string) => {
       console.error(error);
     })
   }
-
-  // const [title, setTitle] = useState(data.getPost.title);
-  // const [content, setContent] = useState(data.getPost.content);
-  // const [slug, setSlug] = useState(firstSlug);
-  
-  // if(updateLoading) {
-  //   return <p>update loading</p>
-  // }
-  // if (updateError) {
-  //   return <p>update error</p>
-  // }
 
   return {
     fetchLoad,
