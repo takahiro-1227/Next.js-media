@@ -28,7 +28,7 @@ const Articles = () => {
   return (
     <table>
       <tbody>
-        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}) => {
+        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}: any) => {
           const createdAtObj = new Date(Number(createdAtRaw));
           const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
