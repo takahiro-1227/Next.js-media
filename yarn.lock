@@ -3404,7 +3404,7 @@
   "resolved" "https://registry.npmjs.org/graphql-sse/-/graphql-sse-1.1.0.tgz"
   "version" "1.1.0"
 
-"graphql-tag@^2.11.0", "graphql-tag@^2.12.3":
+"graphql-tag@^2.11.0", "graphql-tag@^2.12.3", "graphql-tag@^2.12.6":
   "integrity" "sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg=="
   "resolved" "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.12.6.tgz"
   "version" "2.12.6"

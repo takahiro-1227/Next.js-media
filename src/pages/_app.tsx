@@ -2,8 +2,9 @@ import '../styles/globals.scss'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+
 export const client = new ApolloClient({
-  uri: 'http://localhost:3000/api/post',
+  uri: `${process.env.NEXT_PUBLIC_SITE_URL}/api/post`,
   cache: new InMemoryCache()
 })
 function MyApp({ Component, pageProps }: AppProps) {
