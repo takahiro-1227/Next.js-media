@@ -1,7 +1,7 @@
 import '../styles/globals.scss'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
-import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import { ApolloProvider} from '@apollo/client';
 import client from '../libs/client';
 
 
