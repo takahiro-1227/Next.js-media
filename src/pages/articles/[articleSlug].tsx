@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useQuery } from '@apollo/client';
 import { GET_POSTS } from '../index';
 import { prisma } from '../../libs/prisma';
-import { client } from '../_app';
+import client from '../../libs/client';
 import { create } from 'domain';
 import GET_POST from '../../helper/getPost';
 
