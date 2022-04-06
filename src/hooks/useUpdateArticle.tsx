@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import GET_POST from '../helper/getPost'; 
 
 const UPDATE_POST = gql`
-mutation UpdatePost($id: Int!, $title: String!, $content: String!, $slug: String!) {
+mutation updatePost($id: Int!, $title: String!, $content: String!, $slug: String!) {
   updatePost(id: $id, title: $title, content: $content, slug: $slug) {
     id
   }

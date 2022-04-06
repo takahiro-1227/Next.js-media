@@ -1,12 +1,14 @@
-schema: './src/api/Post.typeDefs.ts'
+schema: 'src/api/Post.typeDefs.ts'
 documents: 
-  - './src/**/*.tsx'
-  - './src/**/*.ts'
+  - 'src/**/*.tsx'
+  - 'src/**/*.ts'
+watch:
+  - 'src/**/*.tsx'
+  - 'src/**/*.ts'
 generates:
   ./src/generated/index.ts:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-react-query
-    config:
-      fetcher: fetch
+      - typescript-react-apollo
+      - typescript-resolvers

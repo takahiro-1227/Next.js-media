@@ -733,15 +733,27 @@
     "auto-bind" "~4.0.0"
     "tslib" "~2.3.0"
 
-"@graphql-codegen/typescript-react-query@^3.5.9":
-  "integrity" "sha512-Pdz9ZxPD4tldyZhX826HrXZAZe6pYP3kWAzXnQYfvihbnPKxGe9AsL8Rp7uj67no4Yi5aHYSuPA52Dt7cUYFOg=="
-  "resolved" "https://registry.npmjs.org/@graphql-codegen/typescript-react-query/-/typescript-react-query-3.5.9.tgz"
-  "version" "3.5.9"
+"@graphql-codegen/typescript-react-apollo@^3.2.11":
+  "integrity" "sha512-Bfo7/OprnWk/srhA/3I0cKySg/SyVPX3ZoxzTk6ChYVBsy69jKDkdPWwlmE7Fjfv7+5G+xXb99OoqUUgBLma3w=="
+  "resolved" "https://registry.npmjs.org/@graphql-codegen/typescript-react-apollo/-/typescript-react-apollo-3.2.11.tgz"
+  "version" "3.2.11"
   dependencies:
     "@graphql-codegen/plugin-helpers" "^2.4.0"
     "@graphql-codegen/visitor-plugin-common" "2.7.4"
     "auto-bind" "~4.0.0"
     "change-case-all" "1.0.14"
+    "tslib" "~2.3.0"
+
+"@graphql-codegen/typescript-resolvers@^2.6.1":
+  "integrity" "sha512-tb8qiIYRDbypHvEVBi04OlItABPeormhd6gh26Q0FO/dD+tLx1V85A6wnHC4jExWPP9+/3PwHJL1pq/0n1kxlA=="
+  "resolved" "https://registry.npmjs.org/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-2.6.1.tgz"
+  "version" "2.6.1"
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "^2.4.0"
+    "@graphql-codegen/typescript" "^2.4.8"
+    "@graphql-codegen/visitor-plugin-common" "2.7.4"
+    "@graphql-tools/utils" "^8.1.1"
+    "auto-bind" "~4.0.0"
     "tslib" "~2.3.0"
 
 "@graphql-codegen/typescript@^2.4.8":
@@ -3404,7 +3416,7 @@
   "resolved" "https://registry.npmjs.org/graphql-sse/-/graphql-sse-1.1.0.tgz"
   "version" "1.1.0"
 
-"graphql-tag@^2.11.0", "graphql-tag@^2.12.3", "graphql-tag@^2.12.6":
+"graphql-tag@^2.0.0", "graphql-tag@^2.11.0", "graphql-tag@^2.12.3", "graphql-tag@^2.12.6":
   "integrity" "sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg=="
   "resolved" "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.12.6.tgz"
   "version" "2.12.6"

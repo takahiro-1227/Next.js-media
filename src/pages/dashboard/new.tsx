@@ -4,7 +4,7 @@ import { EditArticle } from "../../components/dashboard/EditArticle";
 // import List from '@editorjs/list';
 
 const CREATE_POST = gql`
-  mutation CreatePost($title: String!, $content: String!, $slug: String!) {
+  mutation createPost($title: String!, $content: String!, $slug: String!) {
     createPost(title: $title, content: $content, slug: $slug) {
       id
     }

@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-micro';
 import { PrismaClient } from '@prisma/client';
 import Cors from 'micro-cors';
 import typeDefs from '../../api/Post.typeDefs';
+import { Resolvers } from '../../generated';
 
 export type Context = {
   prisma: PrismaClient;
@@ -13,23 +14,23 @@ export async function createContext(): Promise<Context> {
     prisma,
   }
 }
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    getPosts: (_parent: any, _args: any, {prisma}: any) => {
+    getPosts: (_parent, _args, {prisma}) => {
       return prisma.post.findMany();
     },
-    getPost: (_parent: any, {slug}: any, {prisma}: any) => {
+    getPost: (_parent, {slug}, {prisma}) => {
       return prisma.post.findUnique({where: {slug}})
     }
   },
   Mutation: {
-    createPost: async (_parent: any, {slug, title, content}: any, {prisma}: any) => {
+    createPost: async (_parent, {slug, title, content}, {prisma}) => {
       const post = await prisma.post.create({
         data: {slug, title, content},
       })
       return post;
     },
-    updatePost: async (_parent: any, {id, slug, title, content}: any, {prisma}: any) => {
+    updatePost: async (_parent, {id, slug, title, content}, {prisma}) => {
       const post = await prisma.post.update({
         where: {
           id

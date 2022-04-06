@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const GET_POST = gql`
-  query GetPost($slug: String!) {
+  query getPost($slug: String!) {
     getPost(slug: $slug) {
       id
       title

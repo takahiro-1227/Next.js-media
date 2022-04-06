@@ -1,8 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { GetPostsQuery } from '../generated';
 
 export const GET_POSTS = gql`
-  query {
+  query getPosts {
     getPosts {
       id
       title
@@ -28,7 +29,7 @@ const Articles = () => {
   return (
     <table>
       <tbody>
-        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}: any) => {
+        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}) => {
           const createdAtObj = new Date(Number(createdAtRaw));
           const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
