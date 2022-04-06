@@ -1,6 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { GetPostsQuery } from '../generated';
+import { useGetPostsQuery } from '../generated';
 
 export const GET_POSTS = gql`
   query getPosts {
@@ -15,7 +15,7 @@ export const GET_POSTS = gql`
 `;
 
 const Articles = () => {
-  const {loading, error, data} = useQuery(GET_POSTS);
+  const {loading, error, data} = useGetPostsQuery();
 
   const router = useRouter();
   
@@ -26,10 +26,18 @@ const Articles = () => {
     console.error(error);
     return <p>Error: </p>
   }
+  if (!data) {
+    return <p>データが取得できませんでした</p>
+  }
+
   return (
     <table>
       <tbody>
-        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}) => {
+        {data.getPosts.map((getPost) => {
+          if (!getPost) {
+            return null;
+          }
+          const {id, title, content, createdAt: createdAtRaw, slug} = getPost;
           const createdAtObj = new Date(Number(createdAtRaw));
           const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
