@@ -21,15 +21,27 @@ const DashboardTop = () => {
   if (loading) {
     return <p>Loading...</p>
   }
-  if (error || !data) {
+  if (error) {
     console.error(error);
     return <p>Error: </p>
+  }
+
+  if (!data) {
+    return <p>データが取得できませんでした</p>
+  }
+
+  if (data.getPosts === null) {
+    return <p>投稿がありません</p>;
   }
 
   return (
     <table>
       <tbody>
-        {data.getPosts.map(({id, title, content, createdAt: createdAtRaw, slug}) => {
+        {data.getPosts.map((getPost) => {
+          if (!getPost) {
+            return null;
+          }
+          const {id, title, content, createdAt: createdAtRaw, slug} = getPost
           const createdAtObj = new Date(Number(createdAtRaw));
           const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
