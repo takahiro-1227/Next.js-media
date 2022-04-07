@@ -1,12 +1,12 @@
 {
-  "name": "yuruwork",
+  "name": "next-js-media",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "generate": "graphql-codegen",
-    "lint": "next lint"
+    "fix": "prettier --write . && next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
@@ -26,7 +26,6 @@
     "apollo-server": "^3.6.3",
     "apollo-server-micro": "^3.6.2",
     "autoprefixer": "^10.4.2",
-    "eslint": "8.8.0",
     "eslint-config-next": "12.0.9",
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
@@ -45,5 +44,9 @@
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.6.2"
   }
 }

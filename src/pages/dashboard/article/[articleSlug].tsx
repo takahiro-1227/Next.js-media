@@ -1,8 +1,8 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useState, useEffect } from 'react';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
 import { EditArticle } from "../../../components/dashboard/EditArticle";
-import { useUpdateArticle } from '../../../hooks/useUpdateArticle';
-import { useRouter } from 'next/router';
+import { useUpdateArticle } from "../../../hooks/useUpdateArticle";
+import { useRouter } from "next/router";
 
 const UpdateArticle = () => {
   const router = useRouter();
@@ -17,19 +17,27 @@ const UpdateArticle = () => {
     handleChangeTitle,
     handleChangeContent,
     handleChangeSlug,
-    handleSave
+    handleSave,
   } = useUpdateArticle(firstSlug as string);
 
   if (fetchError) {
-    return <p>fetch error</p>
+    return <p>fetch error</p>;
   }
   if (fetchLoad) {
-    return <p>fetch loading</p>
+    return <p>fetch loading</p>;
   }
 
   return (
-    <EditArticle title={title} content={content} slug={slug} handleChangeTitle={handleChangeTitle} handleChangeContent={handleChangeContent} handleChangeSlug={handleChangeSlug} savePost={handleSave}/>
-  )
-}
+    <EditArticle
+      title={title}
+      content={content}
+      slug={slug}
+      handleChangeTitle={handleChangeTitle}
+      handleChangeContent={handleChangeContent}
+      handleChangeSlug={handleChangeSlug}
+      savePost={handleSave}
+    />
+  );
+};
 
 export default UpdateArticle;

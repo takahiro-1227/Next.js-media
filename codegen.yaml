@@ -1,10 +1,10 @@
-schema: 'src/api/Post.typeDefs.ts'
-documents: 
-  - 'src/**/*.tsx'
-  - 'src/**/*.ts'
+schema: "src/api/Post.typeDefs.ts"
+documents:
+  - "src/**/*.tsx"
+  - "src/**/*.ts"
 watch:
-  - 'src/**/*.tsx'
-  - 'src/**/*.ts'
+  - "src/**/*.tsx"
+  - "src/**/*.ts"
 generates:
   ./src/generated/index.ts:
     plugins:

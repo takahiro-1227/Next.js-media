@@ -5,11 +5,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      body: [
-        "Noto Sans JP",
-        "sans-serif"
-      ]
+      body: ["Noto Sans JP", "sans-serif"],
     },
   },
   plugins: [],
-}
+};

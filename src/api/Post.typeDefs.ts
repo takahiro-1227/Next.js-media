@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const typeDefs = gql`
   type Post {
-    id:        Int! 
-    slug:      String!
-    title:     String!
-    content:   String!
+    id: Int!
+    slug: String!
+    title: String!
+    content: String!
     createdAt: String!
   }
 
@@ -15,18 +15,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createPost(
-      slug:      String!,
-      title:     String!,
-      content:   String!
-    ): Post!
-    updatePost(
-      id:        Int!,
-      slug:      String!,
-      title:     String!,
-      content:   String!
-    ): Post!
+    createPost(slug: String!, title: String!, content: String!): Post!
+    updatePost(id: Int!, slug: String!, title: String!, content: String!): Post!
   }
-`
+`;
 
 export default typeDefs;
