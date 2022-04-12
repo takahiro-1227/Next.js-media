@@ -1,9 +1,5 @@
 import { TextField, Button } from "@mui/material";
-import {
-  FunctionComponent,
-  ChangeEventHandler,
-  MouseEventHandler,
-} from "react";
+import { FunctionComponent, ChangeEventHandler } from "react";
 
 interface Props {
   title: string;
@@ -12,7 +8,7 @@ interface Props {
   handleChangeTitle: ChangeEventHandler;
   handleChangeContent: ChangeEventHandler;
   handleChangeSlug: ChangeEventHandler;
-  savePost: (event: void) => void;
+  savePost: () => void;
 }
 
 export const EditArticle: FunctionComponent<Props> = ({

@@ -1,5 +1,3 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
 import { EditArticle } from "../../../components/dashboard/EditArticle";
 import { useUpdateArticle } from "../../../hooks/useUpdateArticle";
 import { useRouter } from "next/router";

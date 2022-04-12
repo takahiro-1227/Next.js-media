@@ -16,8 +16,6 @@ const NewArticle = () => {
   const [content, setContent] = useState("");
   const [slug, setSlug] = useState("");
 
-  console.log(content);
-
   const [createPost, { loading, error }] = useMutation(CREATE_POST);
 
   const handleChangeTitle = ({ target }: React.ChangeEvent<HTMLInputElement>) =>

@@ -38,10 +38,6 @@ export const useUpdateArticle = (firstSlug: string) => {
     }
   }, [fetchLoad, data]);
 
-  useEffect(() => {
-    console.log(content);
-  }, [content]);
-
   const [updatePost] = useMutation(UPDATE_POST);
 
   const handleChangeTitle = ({ target }: React.ChangeEvent<HTMLInputElement>) =>

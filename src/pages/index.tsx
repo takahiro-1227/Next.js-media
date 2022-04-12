@@ -23,8 +23,7 @@ const Articles = () => {
     return <p>Loading...</p>;
   }
   if (error) {
-    console.error(error);
-    return <p>Error: </p>;
+    return <p>エラーが発生しました</p>;
   }
   if (!data) {
     return <p>データが取得できませんでした</p>;

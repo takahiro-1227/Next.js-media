@@ -1,6 +1,6 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useGetPostQuery, useGetPostsQuery } from "../../generated";
+import { useGetPostsQuery } from "../../generated";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const GET_POSTS = gql`
@@ -27,7 +27,6 @@ const DashboardTop = () => {
     isAuthenticated,
     isLoading: authLoading,
     error: authError,
-    getIdTokenClaims,
   } = useAuth0();
 
   if (getPostsLoading || authLoading) {
@@ -53,11 +52,8 @@ const DashboardTop = () => {
     return <p>投稿がありません</p>;
   }
 
-  const tokenId = getIdTokenClaims();
-  console.log(tokenId);
   return (
     <>
-      {/* <p>{tokenId}</p> */}
       {user ? <p>{user.name}</p> : null}
       <table>
         <tbody>
