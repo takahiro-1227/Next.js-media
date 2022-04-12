@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID ?? ""}
           redirectUri={`${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`}
         >
-            <Component {...pageProps} />
+          <Component {...pageProps} />
         </Auth0Provider>
       </ApolloProvider>
     </>

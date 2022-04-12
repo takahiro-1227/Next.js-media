@@ -47,6 +47,7 @@
     "schema": "src/prisma/schema.prisma"
   },
   "devDependencies": {
+    "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "2.6.2"
   }

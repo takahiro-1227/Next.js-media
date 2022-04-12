@@ -17,8 +17,18 @@ export const GET_POSTS = gql`
 
 const DashboardTop = () => {
   const router = useRouter();
-  const { loading: getPostsLoading, error: getPostsError , data } = useGetPostsQuery();
-  const { user, isAuthenticated, isLoading: authLoading, error: authError, getIdTokenClaims } = useAuth0();
+  const {
+    loading: getPostsLoading,
+    error: getPostsError,
+    data,
+  } = useGetPostsQuery();
+  const {
+    user,
+    isAuthenticated,
+    isLoading: authLoading,
+    error: authError,
+    getIdTokenClaims,
+  } = useAuth0();
 
   if (getPostsLoading || authLoading) {
     return <p>Loading...</p>;
@@ -29,16 +39,15 @@ const DashboardTop = () => {
   if (authError) {
     throw authError;
   }
-  
+
   if (!isAuthenticated) {
     router.push("/dashboard/login");
-    return <p>Redirecting...</p>
+    return <p>Redirecting...</p>;
   }
 
   if (!data) {
     return <p>データが取得できませんでした</p>;
   }
-
 
   if (data.getPosts === null) {
     return <p>投稿がありません</p>;
@@ -56,7 +65,13 @@ const DashboardTop = () => {
             if (!getPost) {
               return null;
             }
-            const { id, title, content, createdAt: createdAtRaw, slug } = getPost;
+            const {
+              id,
+              title,
+              content,
+              createdAt: createdAtRaw,
+              slug,
+            } = getPost;
             const createdAtObj = new Date(Number(createdAtRaw));
             const createdAt = `${createdAtObj.getFullYear()}.${createdAtObj.getMonth()}.${createdAtObj.getDay()}`;
 
