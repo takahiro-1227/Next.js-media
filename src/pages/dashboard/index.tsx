@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useGetPostsQuery } from "../../generated";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export const GET_POSTS = gql`
   query getPosts {
@@ -22,12 +22,7 @@ const DashboardTop = () => {
     error: getPostsError,
     data,
   } = useGetPostsQuery();
-  const {
-    user,
-    isAuthenticated,
-    isLoading: authLoading,
-    error: authError,
-  } = useAuth0();
+  const { user, isLoading: authLoading, error: authError } = useUser();
 
   if (getPostsLoading || authLoading) {
     return <p>Loading...</p>;
@@ -39,7 +34,7 @@ const DashboardTop = () => {
     throw authError;
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     router.push("/dashboard/login");
     return <p>Redirecting...</p>;
   }
@@ -54,7 +49,7 @@ const DashboardTop = () => {
 
   return (
     <>
-      {user ? <p>{user.name}</p> : null}
+      <p>{user.name}</p>
       <table>
         <tbody>
           {data.getPosts.map((getPost) => {

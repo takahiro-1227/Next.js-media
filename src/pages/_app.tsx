@@ -2,7 +2,7 @@ import "../styles/globals.scss";
 import Head from "next/head";
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { UserProvider } from "@auth0/nextjs-auth0";
 import client from "../libs/client";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -20,15 +20,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
-      <ApolloProvider client={client}>
-        <Auth0Provider
-          domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN ?? ""}
-          clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID ?? ""}
-          redirectUri={`${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`}
-        >
+      <UserProvider>
+        <ApolloProvider client={client}>
           <Component {...pageProps} />
-        </Auth0Provider>
-      </ApolloProvider>
+        </ApolloProvider>
+      </UserProvider>
     </>
   );
 }

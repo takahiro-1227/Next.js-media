@@ -1,3 +1,5 @@
-## yuruwork
+## Next.js Media
 
-test
+test 用ユーザー
+mail: test@gmail.com
+password: Test1234
