@@ -50,6 +50,8 @@ const DashboardTop = () => {
   return (
     <>
       <p>{user.name}</p>
+      {/* eslint-disable-next-line */}
+      <a href="/api/auth/logout">ログアウト</a>
       <table>
         <tbody>
           {data.getPosts.map((getPost) => {
