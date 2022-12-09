@@ -1,13 +1,15 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Input } from "@mui/material";
 import { FunctionComponent, ChangeEventHandler } from "react";
 
 interface Props {
   title: string;
   content: string;
   slug: string;
+  thumbnailURL: string;
   handleChangeTitle: ChangeEventHandler;
   handleChangeContent: ChangeEventHandler;
   handleChangeSlug: ChangeEventHandler;
+  handleUploadPreview: ChangeEventHandler<HTMLInputElement>;
   savePost: () => void;
 }
 
@@ -15,9 +17,11 @@ export const EditArticle: FunctionComponent<Props> = ({
   title,
   content,
   slug,
+  thumbnailURL,
   handleChangeTitle,
   handleChangeContent,
   handleChangeSlug,
+  handleUploadPreview,
   savePost,
 }) => {
   return (
@@ -32,6 +36,8 @@ export const EditArticle: FunctionComponent<Props> = ({
         onChange={handleChangeContent}
       />
       <TextField label="スラッグ" value={slug} onChange={handleChangeSlug} />
+      <Input type="file" onChange={handleUploadPreview} />
+      {thumbnailURL && <img src={thumbnailURL} width="40" height="40" />}
       <Button color="primary" onClick={() => savePost()}>
         保存
       </Button>

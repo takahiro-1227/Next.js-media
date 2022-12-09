@@ -25,15 +25,35 @@ export type Scalars = {
   Float: number;
 };
 
+export type Item = {
+  __typename?: "Item";
+  alt?: Maybe<Scalars["String"]>;
+  createdAt: Scalars["String"];
+  height?: Maybe<Scalars["Int"]>;
+  id: Scalars["Int"];
+  name: Scalars["String"];
+  width?: Maybe<Scalars["Int"]>;
+};
+
 export type Mutation = {
   __typename?: "Mutation";
+  createItem: Item;
   createPost: Post;
   updatePost: Post;
+};
+
+export type MutationCreateItemArgs = {
+  alt?: InputMaybe<Scalars["String"]>;
+  height?: InputMaybe<Scalars["Int"]>;
+  name: Scalars["String"];
+  path: Scalars["String"];
+  width?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationCreatePostArgs = {
   content: Scalars["String"];
   slug: Scalars["String"];
+  thumbnailURL?: InputMaybe<Scalars["String"]>;
   title: Scalars["String"];
 };
 
@@ -41,6 +61,7 @@ export type MutationUpdatePostArgs = {
   content: Scalars["String"];
   id: Scalars["Int"];
   slug: Scalars["String"];
+  thumbnailURL?: InputMaybe<Scalars["String"]>;
   title: Scalars["String"];
 };
 
@@ -50,6 +71,7 @@ export type Post = {
   createdAt: Scalars["String"];
   id: Scalars["Int"];
   slug: Scalars["String"];
+  thumbnail?: Maybe<Item>;
   title: Scalars["String"];
 };
 
@@ -73,8 +95,16 @@ export type GetPostQuery = {
     __typename?: "Post";
     id: number;
     title: string;
+    slug: string;
     content: string;
     createdAt: string;
+    thumbnail?: {
+      __typename?: "Item";
+      name: string;
+      alt?: string | null;
+      width?: number | null;
+      height?: number | null;
+    } | null;
   };
 };
 
@@ -83,11 +113,24 @@ export type UpdatePostMutationVariables = Exact<{
   title: Scalars["String"];
   content: Scalars["String"];
   slug: Scalars["String"];
+  thumbnailURL?: InputMaybe<Scalars["String"]>;
 }>;
 
 export type UpdatePostMutation = {
   __typename?: "Mutation";
   updatePost: { __typename?: "Post"; id: number };
+};
+
+export type CreatePostMutationVariables = Exact<{
+  title: Scalars["String"];
+  content: Scalars["String"];
+  slug: Scalars["String"];
+  thumbnailURL?: InputMaybe<Scalars["String"]>;
+}>;
+
+export type CreatePostMutation = {
+  __typename?: "Mutation";
+  createPost: { __typename?: "Post"; id: number };
 };
 
 export type GetPostsQueryVariables = Exact<{ [key: string]: never }>;
@@ -101,18 +144,8 @@ export type GetPostsQuery = {
     content: string;
     slug: string;
     createdAt: string;
+    thumbnail?: { __typename?: "Item"; name: string } | null;
   } | null>;
-};
-
-export type CreatePostMutationVariables = Exact<{
-  title: Scalars["String"];
-  content: Scalars["String"];
-  slug: Scalars["String"];
-}>;
-
-export type CreatePostMutation = {
-  __typename?: "Mutation";
-  createPost: { __typename?: "Post"; id: number };
 };
 
 export const GetPostDocument = gql`
@@ -120,8 +153,15 @@ export const GetPostDocument = gql`
     getPost(slug: $slug) {
       id
       title
+      slug
       content
       createdAt
+      thumbnail {
+        name
+        alt
+        width
+        height
+      }
     }
   }
 `;
@@ -172,8 +212,15 @@ export const UpdatePostDocument = gql`
     $title: String!
     $content: String!
     $slug: String!
+    $thumbnailURL: String
   ) {
-    updatePost(id: $id, title: $title, content: $content, slug: $slug) {
+    updatePost(
+      id: $id
+      title: $title
+      content: $content
+      slug: $slug
+      thumbnailURL: $thumbnailURL
+    ) {
       id
     }
   }
@@ -200,6 +247,7 @@ export type UpdatePostMutationFn = Apollo.MutationFunction<
  *      title: // value for 'title'
  *      content: // value for 'content'
  *      slug: // value for 'slug'
+ *      thumbnailURL: // value for 'thumbnailURL'
  *   },
  * });
  */
@@ -224,6 +272,69 @@ export type UpdatePostMutationOptions = Apollo.BaseMutationOptions<
   UpdatePostMutation,
   UpdatePostMutationVariables
 >;
+export const CreatePostDocument = gql`
+  mutation createPost(
+    $title: String!
+    $content: String!
+    $slug: String!
+    $thumbnailURL: String
+  ) {
+    createPost(
+      title: $title
+      content: $content
+      slug: $slug
+      thumbnailURL: $thumbnailURL
+    ) {
+      id
+    }
+  }
+`;
+export type CreatePostMutationFn = Apollo.MutationFunction<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *      content: // value for 'content'
+ *      slug: // value for 'slug'
+ *      thumbnailURL: // value for 'thumbnailURL'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreatePostMutation,
+    CreatePostMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
+    CreatePostDocument,
+    options
+  );
+}
+export type CreatePostMutationHookResult = ReturnType<
+  typeof useCreatePostMutation
+>;
+export type CreatePostMutationResult =
+  Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
+  CreatePostMutation,
+  CreatePostMutationVariables
+>;
 export const GetPostsDocument = gql`
   query getPosts {
     getPosts {
@@ -232,6 +343,9 @@ export const GetPostsDocument = gql`
       content
       slug
       createdAt
+      thumbnail {
+        name
+      }
     }
   }
 `;
@@ -279,58 +393,6 @@ export type GetPostsLazyQueryHookResult = ReturnType<
 export type GetPostsQueryResult = Apollo.QueryResult<
   GetPostsQuery,
   GetPostsQueryVariables
->;
-export const CreatePostDocument = gql`
-  mutation createPost($title: String!, $content: String!, $slug: String!) {
-    createPost(title: $title, content: $content, slug: $slug) {
-      id
-    }
-  }
-`;
-export type CreatePostMutationFn = Apollo.MutationFunction<
-  CreatePostMutation,
-  CreatePostMutationVariables
->;
-
-/**
- * __useCreatePostMutation__
- *
- * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePostMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
- *   variables: {
- *      title: // value for 'title'
- *      content: // value for 'content'
- *      slug: // value for 'slug'
- *   },
- * });
- */
-export function useCreatePostMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreatePostMutation,
-    CreatePostMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(
-    CreatePostDocument,
-    options
-  );
-}
-export type CreatePostMutationHookResult = ReturnType<
-  typeof useCreatePostMutation
->;
-export type CreatePostMutationResult =
-  Apollo.MutationResult<CreatePostMutation>;
-export type CreatePostMutationOptions = Apollo.BaseMutationOptions<
-  CreatePostMutation,
-  CreatePostMutationVariables
 >;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -442,6 +504,7 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
   Int: ResolverTypeWrapper<Scalars["Int"]>;
+  Item: ResolverTypeWrapper<Item>;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   Query: ResolverTypeWrapper<{}>;
@@ -452,16 +515,36 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars["Boolean"];
   Int: Scalars["Int"];
+  Item: Item;
   Mutation: {};
   Post: Post;
   Query: {};
   String: Scalars["String"];
 };
 
+export type ItemResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Item"] = ResolversParentTypes["Item"]
+> = {
+  alt?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  height?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
 > = {
+  createItem?: Resolver<
+    ResolversTypes["Item"],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateItemArgs, "name" | "path">
+  >;
   createPost?: Resolver<
     ResolversTypes["Post"],
     ParentType,
@@ -484,6 +567,7 @@ export type PostResolvers<
   createdAt?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   id?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  thumbnail?: Resolver<Maybe<ResolversTypes["Item"]>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -506,6 +590,7 @@ export type QueryResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
+  Item?: ItemResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useGetPostsQuery } from "../../generated";
 import { useUser } from "@auth0/nextjs-auth0";
+import { PageWithHeader } from "../../components/front/PageWithHeader";
 
 export const GET_POSTS = gql`
   query getPosts {
@@ -11,6 +12,9 @@ export const GET_POSTS = gql`
       content
       slug
       createdAt
+      thumbnail {
+        name
+      }
     }
   }
 `;
@@ -48,7 +52,7 @@ const DashboardTop = () => {
   }
 
   return (
-    <>
+    <PageWithHeader>
       <p>{user.name}</p>
       {/* eslint-disable-next-line */}
       <a href="/api/auth/logout">ログアウト</a>
@@ -82,7 +86,7 @@ const DashboardTop = () => {
           })}
         </tbody>
       </table>
-    </>
+    </PageWithHeader>
   );
 };
 

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Item` MODIFY `alt` VARCHAR(191) NULL;

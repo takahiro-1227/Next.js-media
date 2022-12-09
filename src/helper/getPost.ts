@@ -5,8 +5,15 @@ const GET_POST = gql`
     getPost(slug: $slug) {
       id
       title
+      slug
       content
       createdAt
+      thumbnail {
+        name
+        alt
+        width
+        height
+      }
     }
   }
 `;
